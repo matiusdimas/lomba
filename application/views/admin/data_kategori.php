@@ -22,6 +22,7 @@
                         <th scope="col">NO</th>
                         <th scope="col">KATEGORI LOMBA</th>
                         <th scope="col">NAMA PENANGGUNG JAWAB</th>
+                        <th scope="col">TOTAL PESERTA</th>
                         <th scope="col">MAX PESERTA</th>
                         <th scope="col">MAX VENUE</th>
                         <th scope="col">TANGGAL MULAI</th>
@@ -39,6 +40,7 @@
                             <th scope="row" class="align-middle"><?= $i + 1 ?></th>
                             <td class="align-middle"><?= $k['kat_lb'] ?></td>
                             <td class="align-middle"><?= $k['nama_pj'] ?></td>
+                            <td class="align-middle"><?= $k['total_ps'] ?></td>
                             <td class="align-middle"><?= $k['max_ps'] ?></td>
                             <td class="align-middle"><?= $k['venue_lb'] ?></td>
                             <td class="align-middle"><?= $k['waktu_lb'] ?></td>

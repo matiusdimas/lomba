@@ -73,6 +73,7 @@ class Kategori extends CI_Controller
         $this->form_validation->set_rules('tanggal_akhir', 'Tanggal Akhir', 'required');
         $this->form_validation->set_rules('waktu_akhir', 'Waktu Akhir', 'required');
         $this->form_validation->set_rules('biaya', 'Biaya Daftar', 'required|numeric');
+        $this->form_validation->set_rules('jumlah_peserta', 'Total Peserta', 'required|numeric');
         $this->form_validation->set_rules('juara1', 'Juara 1', 'required|numeric');
         $this->form_validation->set_rules('juara2', 'Juara 2', 'required|numeric');
         $this->form_validation->set_rules('juara3', 'Juara 3', 'required|numeric');
@@ -87,6 +88,7 @@ class Kategori extends CI_Controller
             $data = [
                 'kat_lb' => $this->input->post('nama_kategori'),
                 'max_ps' => $this->input->post('total_peserta'),
+                'total_ps' => $this->input->post('jumlah_peserta'),
                 'nama_pj' => $this->input->post('nama_pj'),
                 'venue_lb' => $this->input->post('venue'),
                 'waktu_lb' => $this->input->post('tanggal_mulai') . ' ' . $this->input->post('waktu_mulai') . ':00',

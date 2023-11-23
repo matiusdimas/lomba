@@ -26,6 +26,15 @@ class Peserta extends CI_Controller
             $this->load->view('admin/peserta', $data);
             $this->load->view('templates/footer');
         } else {
+            $checkLomba = $this->Model_Kategori->getWhereKategori(['id_lb' => $this->input->post('kategori_lomba')])->row()->max_ps;
+            $checkPeserta = count($this->Model_Peserta->getWherePeserta(['id_lb' => $this->input->post('kategori_lomba')])->result_array());
+            if ($checkLomba < $checkPeserta + 1) {
+                $this->session->set_flashdata('pesan', '<div class="position-absolute alert alert-danger alert-dismissible fade show" role="alert">
+            Tidak Berhasil Karena Maksimal Peserta Sudah Terpenuhi
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>');
+                redirect('peserta');
+            }
             $data = [
                 'nama_ps' => $this->input->post('nama_lengkap'),
                 'hp_ps' => $this->input->post('no_hp'),
@@ -36,6 +45,7 @@ class Peserta extends CI_Controller
                 'bayar' => $this->input->post('biaya'),
             ];
             $this->Model_Peserta->addPeserta($data);
+            $this->addToKategori($data['id_lb']);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Berhasil Menambah Peserta
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -67,6 +77,7 @@ class Peserta extends CI_Controller
             $data['halaman'] = 'UBAH PESERTA';
             $data['id'] = $id;
             $data['kategori'] = $this->Model_Kategori->getKategori()->result_array();
+
             $data['peserta'] = $this->Model_Peserta->getWherePeserta(['no_ps' => $id])->row();
             $this->load->view('templates/header', $data);
             $this->load->view('admin/peserta', $data);
@@ -96,5 +107,14 @@ class Peserta extends CI_Controller
       </div>');
         $this->Model_Peserta->deletePeserta(['no_ps' => $id]);
         redirect('peserta/datapeserta');
+    }
+
+    private function addToKategori($data)
+    {
+        $peserta = $this->Model_Peserta->getWherePeserta(['id_lb' => $data])->result_array();
+        $datas = [
+            'total_ps' => count($peserta)
+        ];
+        return $this->Model_Kategori->updateKategori($datas, ['id_lb' => $data]);
     }
 }

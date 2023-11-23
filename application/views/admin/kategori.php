@@ -40,10 +40,17 @@
                             value="<?= isset($id) ? $kategori->venue_lb : set_value('venue') ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="total_peserta" class="form-label"><strong>TOTAL PESERTA</strong></label>
+                        <label for="total_peserta" class="form-label"><strong>MAX PESERTA</strong></label>
                         <input type="number" class="form-control" name="total_peserta" id="total_peserta"
                             value="<?= isset($id) ? $kategori->max_ps : set_value('total_peserta') ?>" required>
                     </div>
+                    <?php if (isset($id)) { ?>
+                        <div class="mb-3">
+                            <label for="jumlah_peserta" class="form-label"><strong>TOTAL PESERTA</strong></label>
+                            <input type="number" class="form-control" name="jumlah_peserta" id="jumlah_peserta"
+                                value="<?= isset($id) ? $kategori->total_ps : set_value('jumlah_peserta') ?>" required>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="col">
                     <div class="mb-3">

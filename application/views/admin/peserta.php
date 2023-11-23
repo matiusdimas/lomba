@@ -19,6 +19,7 @@
                 </div>
             </div>
         <?php } ?>
+        <?= $this->session->flashdata('pesan') ?>
         <form action="<?= isset($id) ? base_url('peserta/updatepeserta/' . $id) : base_url('peserta') ?>" method="post">
             <div class="row">
                 <div class="col">
