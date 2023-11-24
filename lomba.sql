@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2023 at 07:10 PM
+-- Generation Time: Nov 24, 2023 at 09:47 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,6 +51,7 @@ CREATE TABLE `lomba` (
   `id_lb` int(11) NOT NULL,
   `kat_lb` varchar(255) NOT NULL,
   `max_ps` int(11) NOT NULL,
+  `total_ps` int(11) DEFAULT 0,
   `nama_pj` varchar(255) NOT NULL,
   `venue_lb` varchar(255) NOT NULL,
   `waktu_lb` datetime NOT NULL,
@@ -65,35 +66,9 @@ CREATE TABLE `lomba` (
 -- Dumping data for table `lomba`
 --
 
-INSERT INTO `lomba` (`id_lb`, `kat_lb`, `max_ps`, `nama_pj`, `venue_lb`, `waktu_lb`, `waktu_selesai_lb`, `biaya_lb`, `juara1`, `juara2`, `juara3`) VALUES
-(4, 'Lomba Makan Kerupuk', 50, 'Hadi', 'Aula Desa', '2023-11-16 10:19:00', '2023-11-02 22:18:00', 10000, 50000, 25000, 15000),
-(5, 'Lomba Balap Sarung', 20, 'Tius', 'Gedung Dpr', '2023-11-23 13:50:00', '2023-11-23 16:00:00', 20000, 50000, 40000, 30000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pembayaran`
---
-
-CREATE TABLE `pembayaran` (
-  `id_byr` int(11) NOT NULL,
-  `id_dft` int(11) NOT NULL,
-  `id_adm` int(11) NOT NULL,
-  `tgl_byr` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pendaftaran`
---
-
-CREATE TABLE `pendaftaran` (
-  `id_dft` int(11) NOT NULL,
-  `no_ps` int(11) NOT NULL,
-  `id_lb` int(11) NOT NULL,
-  `tgl_dft` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `lomba` (`id_lb`, `kat_lb`, `max_ps`, `total_ps`, `nama_pj`, `venue_lb`, `waktu_lb`, `waktu_selesai_lb`, `biaya_lb`, `juara1`, `juara2`, `juara3`) VALUES
+(4, 'Lomba Makan Kerupuk 2023', 4, 2, 'Hadi', 'Istana Bogot', '2023-11-16 10:19:00', '2023-11-02 22:18:00', 10000, 50000, 25000, 15000),
+(5, 'Lomba Balap Sarung 2023', 20, 1, 'Tius', 'Gedung Dpr', '2023-11-23 13:50:00', '2023-11-23 16:00:00', 20000, 50000, 40000, 30000);
 
 -- --------------------------------------------------------
 
@@ -121,7 +96,7 @@ CREATE TABLE `peserta` (
 INSERT INTO `peserta` (`no_ps`, `nama_ps`, `hp_ps`, `alamat_ps`, `jk_ps`, `tgl_lahir`, `tgl_daftar`, `id_lb`, `bayar`, `juara`) VALUES
 (3, 'Matius Dimasas', '85125125', 'bekasi', 'LAKI-LAKI', '2023-11-24', '2023-11-23 00:13:20', 4, 10000, NULL),
 (4, 'Siti', '0861273681', 'bekasi', 'PEREMPUAN', '2023-11-24', '2023-11-23 00:13:48', 5, 20000, 1),
-(5, 'YAdi', '081238123', 'kalmina', 'LAKI-LAKI', '2023-11-08', '2023-11-23 01:09:14', 4, 10000, NULL);
+(6, 'jodi', '08345234', 'kalimalang', 'LAKI-LAKI', '2010-10-23', '2023-11-23 13:43:38', 4, 10000, NULL);
 
 --
 -- Indexes for dumped tables
@@ -138,18 +113,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `lomba`
   ADD PRIMARY KEY (`id_lb`);
-
---
--- Indexes for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  ADD PRIMARY KEY (`id_byr`);
-
---
--- Indexes for table `pendaftaran`
---
-ALTER TABLE `pendaftaran`
-  ADD PRIMARY KEY (`id_dft`);
 
 --
 -- Indexes for table `peserta`
@@ -174,22 +137,10 @@ ALTER TABLE `lomba`
   MODIFY `id_lb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  MODIFY `id_byr` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pendaftaran`
---
-ALTER TABLE `pendaftaran`
-  MODIFY `id_dft` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `no_ps` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `no_ps` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
