@@ -55,9 +55,32 @@ class Peserta extends CI_Controller
     }
     public function dataPeserta()
     {
+        $data['tahun_query'] = $this->input->get('tahun');
+        $data['kategori_query'] = $this->input->get('kategori');
         $data['title'] = 'Lomba | Data Peserta';
         $data['kategori'] = $this->Model_Kategori->getKategori()->result_array();
-        $data['peserta'] = $this->Model_Peserta->getPeserta()->result_array();
+        if ($data['tahun_query'] != null || $data['kategori_query'] != null) {
+            if ($data['kategori_query'] !== null && $data['tahun_query'] !== null) {
+                $data['peserta'] = $this->Model_Peserta->getWherePeserta(['YEAR(tgl_daftar)' => $data['tahun_query'], 'id_lb' => $data['kategori_query']])->result_array();
+            } else {
+                if ($data['kategori_query'] !== null) {
+                    $data['peserta'] = $this->Model_Peserta->getWherePeserta(['id_lb' => $data['kategori_query']])->result_array();
+                }
+                if ($data['tahun_query'] !== null) {
+                    $data['peserta'] = $this->Model_Peserta->getWherePeserta(['YEAR(tgl_daftar)' => $data['tahun_query']])->result_array();
+                }
+            }
+        } else {
+            $data['peserta'] = $this->Model_Peserta->getPeserta()->result_array();
+        }
+        $pesertaArray = $this->Model_Peserta->getPeserta()->result_array();
+        $data['years'] = [];
+        foreach ($pesertaArray as $peserta) {
+            $year = date('Y', strtotime($peserta['tgl_daftar']));
+            if (!in_array($year, $data['years'])) {
+                $data['years'][] = $year;
+            }
+        }
         $this->load->view('templates/header', $data);
         $this->load->view('admin/data_peserta', $data);
         $this->load->view('templates/footer');
@@ -101,11 +124,13 @@ class Peserta extends CI_Controller
     }
     public function deletePeserta($id)
     {
+        $getIdLb = $this->Model_Peserta->getWherePeserta(['no_ps' => $id])->row()->id_lb;
         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Berhasil Mengapus Peserta
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>');
         $this->Model_Peserta->deletePeserta(['no_ps' => $id]);
+        $this->addToKategori($getIdLb);
         redirect('peserta/datapeserta');
     }
 
@@ -116,5 +141,14 @@ class Peserta extends CI_Controller
             'total_ps' => count($peserta)
         ];
         return $this->Model_Kategori->updateKategori($datas, ['id_lb' => $data]);
+    }
+
+    public function print($id)
+    {
+        $data['title'] = 'PESERTA TAHUN' . $id;
+        $data['tahun'] = $id;
+        $data['kategori'] = $this->Model_Kategori->getwhereKategori(['YEAR(waktu_lb)' => $id])->result_array();
+        $data['peserta'] = $this->Model_Peserta->getwherePeserta(['YEAR(tgl_daftar)' => $id])->result_array();
+        $this->load->view('admin/print_peserta', $data);
     }
 }
