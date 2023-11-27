@@ -1,28 +1,25 @@
 <?php
 class Model_User extends CI_Model
 {
+    public function getUser()
+    {
+        return $this->db->get('admin');
+    }
     public function getWhereUser($data)
     {
         return $this->db->get_where('admin', $data);
     }
-
-    public function insert_entry()
+    public function addUser($data)
     {
-        $this->title = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date = time();
-
-        $this->db->insert('entries', $this);
+        return $this->db->insert('admin', $data);
     }
-
-    public function update_entry()
+    public function updateUser($data, $where)
     {
-        $this->title = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date = time();
-
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+        return $this->db->update('admin', $data, $where);
     }
-
+    public function deleteUser($where)
+    {
+        return $this->db->delete('admin', $where);
+    }
 }
 ?>

@@ -68,7 +68,7 @@
                                 <option value="kosong">Pilih Kategori</option>
                                 <?php foreach ($kategori as $k) { ?>
                                     <option data-biaya="<?= $k['biaya_lb'] ?>" value="<?= $k['id_lb'] ?>">
-                                        <?= $k['id_lb'] . ' | ' . $k['kat_lb'] ?></option>
+                                        <?= $k['id_lb'] . ' | ' . $k['kat_lb'] ." | Usia ". $k['usia_min'] ."-" . $k['usia_max']?></option>
                                 <?php } ?>
                             </select>
                         </div>

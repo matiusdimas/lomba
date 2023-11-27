@@ -17,7 +17,6 @@
             <div>
                 <select name="tahun" id="tahun" class="form-select" aria-label="Default select example"
                     onchange="navigate(this)">
-
                     <option value="0">Pilih Semua Tahun</option>
                     <?php foreach ($years as $y) { ?>
                         <?php if (isset($tahun_query) && $y == $tahun_query) { ?>

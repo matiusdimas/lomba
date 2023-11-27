@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="px-5 mt-5">
         <?= $this->session->flashdata('pesan') ?>
         <div class="mb-3">
             <a href="<?= base_url('kategori') ?>" class="btn btn-success">ADD</a>
@@ -21,10 +21,12 @@
                     <tr>
                         <th scope="col">NO</th>
                         <th scope="col">KATEGORI LOMBA</th>
+                        <th scope="col">GAMBAR</th>
                         <th scope="col">NAMA PENANGGUNG JAWAB</th>
                         <th scope="col">TOTAL PESERTA</th>
                         <th scope="col">MAX PESERTA</th>
-                        <th scope="col">MAX VENUE</th>
+                        <th scope="col">USIA</th>
+                        <th scope="col">VENUE</th>
                         <th scope="col">TANGGAL MULAI</th>
                         <th scope="col">TANGGAL SELESAI</th>
                         <th scope="col">BIAYA</th>
@@ -39,9 +41,12 @@
                         <tr>
                             <th scope="row" class="align-middle"><?= $i + 1 ?></th>
                             <td class="align-middle"><?= $k['kat_lb'] ?></td>
+                            <td class="align-middle"><img src="<?= base_url('assets/images/lomba/') . $k['gambar'] ?>"
+                                    alt="" width="100px" height="150px"></td>
                             <td class="align-middle"><?= $k['nama_pj'] ?></td>
                             <td class="align-middle"><?= $k['total_ps'] ?></td>
                             <td class="align-middle"><?= $k['max_ps'] ?></td>
+                            <td class="align-middle"><?= $k['usia_min'] . '-' . $k['usia_max'] ?></td>
                             <td class="align-middle"><?= $k['venue_lb'] ?></td>
                             <td class="align-middle"><?= $k['waktu_lb'] ?></td>
                             <td class="align-middle"><?= $k['waktu_selesai_lb'] ?></td>

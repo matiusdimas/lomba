@@ -20,7 +20,7 @@
         <?php } ?>
         <form
             action="<?= $title != 'Lomba | UBAH KATEGORI' ? base_url('kategori') : base_url('kategori/updatekategori/' . $id) ?>"
-            method="post">
+            method="post" enctype="multipart/form-data">
             <?= $this->session->flashdata('pesan') ?>
             <div class="row">
                 <div class="col">
@@ -43,6 +43,13 @@
                         <label for="total_peserta" class="form-label"><strong>MAX PESERTA</strong></label>
                         <input type="number" class="form-control" name="total_peserta" id="total_peserta"
                             value="<?= isset($id) ? $kategori->max_ps : set_value('total_peserta') ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gambar_lomba" class="form-label"><strong>GAMBAR LOMBA</strong></label>
+                        <input type="file" class="form-control" name="gambar_lomba" id="gambar_lomba"
+                            value="<?= isset($id) ? $kategori->gambar : set_value('gambar_lomba') ?>">
+                        <input hidden readonly name="old_gambar_lomba" id="old_gambar_lomba"
+                            value="<?= isset($id) && $kategori->gambar ?>">
                     </div>
                     <?php if (isset($id)) { ?>
                         <div class="mb-3">
@@ -67,7 +74,16 @@
                         <input type="time" class="form-control" name="waktu_akhir" id="waktu_akhir"
                             value='<?= isset($id) ? date('H:i', strtotime($kategori->waktu_selesai_lb)) : set_value('waktu_akhir') ?>'>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="usia_min" class="form-label"><strong>USIA MIN</strong></label>
+                        <input type="number" class="form-control" name="usia_min" id="usia_min"
+                            value="<?= isset($id) ? $kategori->usia_min : set_value('usia_min') ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="usia_max" class="form-label"><strong>USIA MAX</strong></label>
+                        <input type="number" class="form-control" name="usia_max" id="usia_max"
+                            value="<?= isset($id) ? $kategori->usia_max : set_value('usia_max') ?>" required>
+                    </div>
                 </div>
                 <div class="col">
                     <div class="mb-3">

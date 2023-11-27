@@ -7,6 +7,7 @@ class Peserta extends CI_Controller
     {
         parent::__construct();
         _cekAdmin();
+        _cekRole();
     }
 
     public function index()
